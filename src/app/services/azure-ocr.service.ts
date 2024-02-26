@@ -10,17 +10,15 @@ import { AzureKeyCredential } from '@azure/core-auth';
   providedIn: 'root',
 })
 export class AzureOcrService {
-  private endpoint = 'https://bingocardocrservice.cognitiveservices.azure.com/';
-  private key = '2b56092b3259491983f4521eb0d900c6';
-  private credential;
-  private client: ImageAnalysisClient;
-  private features: string[] = [
+  private AZURE_AI_VISION_ENDPOINT = import.meta.env['NG_APP_AI_VISION_ENDPOINT'];
+  private AZURE_AI_VISION_APIKEY = import.meta.env['NG_APP_AI_VISION_APIKEY'];
+  private AZURE_AI_VISION_CLIENT: ImageAnalysisClient;
+  private AZURE_AI_VISION_FEATURES: string[] = [
     'Read'
   ];
 
   constructor(private http: HttpClient) {
-    this.credential = new AzureKeyCredential(this.key);
-    this.client = createImageAnalysisClient(this.endpoint, this.credential);
+    this.AZURE_AI_VISION_CLIENT = createImageAnalysisClient(this.AZURE_AI_VISION_ENDPOINT, new AzureKeyCredential(this.AZURE_AI_VISION_APIKEY));
   }
 
   analyzeImage(image: Blob): Observable<ReadResultOutput> {
@@ -28,9 +26,9 @@ export class AzureOcrService {
       switchMap(arrayBuffer => {
         const buffer = Buffer.from(arrayBuffer);
   
-        return from(this.client.path('/imageanalysis:analyze').post({
+        return from(this.AZURE_AI_VISION_CLIENT.path('/imageanalysis:analyze').post({
           body: buffer,
-          queryParameters: { features: this.features },
+          queryParameters: { features: this.AZURE_AI_VISION_FEATURES },
           contentType: 'application/octet-stream'
         }));
       }),

@@ -14,11 +14,12 @@ import { Bag } from './models/bag.model';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  DEFAULT_REGEX = "\\d\\d{3}([a-zA-Z]{2})?\\d{6}";
   selectedFileUrl: String | undefined;
   selectedFile: File | undefined;
   originalResult: ReadResultOutput | undefined;
   bags: Bag[] = []; 
-  regexPattern = "00\\d{2}[A-Za-z]{2}\\d{6}";  // Default regex pattern
+  regexPattern = this.DEFAULT_REGEX;  // Default regex pattern
 
   constructor(private azureOcrService: AzureOcrService) {}
 
@@ -84,7 +85,7 @@ export class AppComponent {
   }
 
   resetRegex() {
-    this.regexPattern = "00\\d{2}[A-Za-z]{2}\\d{6}";  // Default regex pattern
+    this.regexPattern = this.DEFAULT_REGEX;  // Default regex pattern
     this.resetResult();
   }
 
