@@ -25,8 +25,8 @@ jobs:
       - name: Build And Deploy
         env:
           NODE_VERSION: 18
-          NG_APP_AI_VISION_ENDPOINT: "https://<your-endpoint>.cognitiveservices.azure.com/"
-          NG_APP_AI_VISION_APIKEY: "<your-apikey>"
+          NG_APP_AI_VISION_ENDPOINT: ${{ secrets.NG_APP_AI_VISION_ENDPOINT }}
+          NG_APP_AI_VISION_APIKEY: ${{ secrets.NG_APP_AI_VISION_APIKEY }}
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
