@@ -10,7 +10,10 @@
     </div>
     <div class="px-4 py-5 sm:p-6 flex flex-col justify-center">
       <!-- Input to select a picture -->
-      <input (change)="onFileSelected($event)" class="block w-100 text-gray-900 bg-slate-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none" id="file_input" type="file">
+      <label class="block">
+        <span class="sr-only">Choose File</span>
+        <input (change)="onFileSelected($event)" type="file" class="block w-full text-sm text-gray-500 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-downriver-50 file:text-downriver-700 hover:file:bg-downriver-100"/>
+      </label>
     </div>
   </div>
 
@@ -66,7 +69,7 @@
         </li>
         <li class="col-span-1 flex rounded-md shadow-sm">
           <!-- If bag tag is missing according the uploaded picture, user can add a bag tag -->
-          <button type="button" (click)="addBag()" class="relative block w-full rounded-lg border-2 border-dashed border-gray-300 py-1.5 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-downriver-500 focus:ring-offset-2 bg-clip-text text-transparent bg-gradient-to-r from-downriver-500 to-downriver-600">
+          <button type="button" (click)="addBag()" class="block w-full rounded-md border-2 border-dashed border-gray-300 py-1.5 text-center shadown-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-downriver-500 focus:ring-offset-2 text-downriver-500">
             Add a missing bag
           </button>
         </li>
@@ -79,14 +82,16 @@
         <p class="text-sm text-gray-600 mb-4">
           This is an <span class="font-semibold">Expert Mode</span> feature designed to capture all occurrences matching the regex provided in the input. The <span class="italic">OnChange</span> event will erase all current bag tags detected and find all matches with the new value.
         </p>
-        <p>
+
+        <div class="flex flex-row">
           <!-- Input to edit the REGEX -->
           <label for="regexInput" class="sr-only">Regex</label>
           <input type="text" (input)="onRegexChange($event)" [(ngModel)]="regexPattern" name="regexInput" id="regexInput" class="block w-25 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-downriver-600 sm:text-sm sm:leading-6" placeholder="Regex">
-          
+        
           <!-- Link to reset the REGEX -->
-          <a href="#step-3" class="text-downriver-600 hover:underline" (click)="resetRegex()">Reset</a>
-        </p>
+          <a type="button" role="button" href="#step-3" (click)="resetRegex()" class="rounded-md bg-downriver-600 px-4 w-100 ms-4 mx-auto px-4 py-1 font-semibold text-white shadow-sm hover:bg-downriver-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-downriver-600">Reset</a>
+        </div>
+
       </div>
 
       <div class="w-full border-t border-gray-300 mb-4"></div>
